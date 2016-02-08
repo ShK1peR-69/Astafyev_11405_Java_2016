@@ -7,6 +7,7 @@ import classes.*;
 
 public class Main {
     public static void main(String[] args) {
+	
         Dibala dib = new Dibala();
         dib.accuracy();
         dib.all_distance();
