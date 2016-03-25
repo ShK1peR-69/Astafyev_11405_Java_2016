@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+       <bean id="havi" class="classes.Havi">
+              <constructor-arg value="Havi_Ernandes"/>
+       </bean>
+
+       <bean id="messi" class="classes.Messi">
+              <constructor-arg value="Lionel_Messi"/>
+       </bean>
+
+       <bean id="ronaldo" class="classes.Ronaldo">
+              <constructor-arg value="Cristiano_Ronaldo"/>
+       </bean>
+
+       <bean id="marselo" class="classes.Marselo">
+              <constructor-arg value="Marselo_Vieira"/>
+       </bean>
+
+       <bean id="terry" class="classes.Terry">
+              <constructor-arg value="John_Terry"/>
+       </bean>
+
+       <bean id="lewandowski" class="classes.Lewandowski">
+              <constructor-arg value="Robert_Lewandowski"/>
+       </bean>
+
+       <bean id="drogba" class="classes.Drogba">
+              <constructor-arg value="Didie_Drogba"/>
+       </bean>
+
+       <bean id="dzuba" class="classes.Dzuba">
+              <constructor-arg value="Artem_Dzuba"/>
+       </bean>
+
+       <bean id="dibala" class="classes.Dibala">
+              <constructor-arg value="Pablo_Dibala"/>
+       </bean>
+
+       <bean id="gerrard" class="classes.Gerrard">
+              <constructor-arg value="Steven_Gerrard"/>
+       </bean>
+
+</beans>
