@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http pattern="/resources/**" security="none" />
+    <http auto-config="true" use-expressions="true">
+
+        <form-login login-processing-url="/j_spring_security_check"
+                    login-page="/login"
+                    authentication-failure-url="/login?error=true"/>
+        <!-- Определяем адрес для разлогина, страницу перехода при успешном разлогине
+             и указываем на необходимость очистить сессию пользователя -->
+        <logout logout-url="/logout"
+                logout-success-url="/"
+                invalidate-session="true" />
+        <intercept-url pattern="/user**" access="hasRole('ROLE_USER, ROLE_ADMIN')"/>
+        <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')"/>
+
+        <remember-me user-service-ref="userDetailsService" key="SpringProject" token-validity-seconds="2419200"/>
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userDetailsService">
+            <!-- сообщаем Spring Security каким образом вычислять хэш от пароля -->
+            <password-encoder hash="md5"/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <!-- сервис авторизации -->
+    <beans:bean id="userDetailsService" class="com.springapp.mvc.security.MyUserDetailService"/>
+
+</beans:beans>

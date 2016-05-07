@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- Определяем папку, в которой будем искать DAO компоненты (@Repository) -->
+    <context:component-scan base-package="com.springapp.mvc.repositories" />
+    <context:component-scan base-package="com.springapp.mvc.services"/>
+
+    <!-- Настройки подключения к БД, бин dataSource -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close"
+          p:driverClassName="${jdbc.driverClassName}"
+          p:url="${jdbc.url}"
+          p:username="${jdbc.username}"
+          p:password="${jdbc.password}"
+          p:initialSize="${jdbc.initialSize}"
+          p:maxActive="${jdbc.maxActive}" />
+
+    <!-- Настройки фабрики сессий Хибернейта -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+          p:dataSource-ref="dataSource"
+          p:packagesToScan="com.springapp.mvc.common">
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop><!-- SQL диалект -->
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop><!-- Вывод в консоль SQL-запросов -->
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop><!-- Автообновление структуры БД -->
+            </props>
+        </property>
+    </bean>
+
+    <!-- Менеджер транзакций -->
+    <bean id="hibernateTransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory" />
+
+    <!-- Настройки бина dataSource будем хранить в отдельном файле, определяем где именно -->
+    <bean id="placeholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="classpath:jdbc.properties" />
+
+    <!-- Настраивает управление транзакциями с помощью аннотации @Transactional -->
+    <tx:annotation-driven transaction-manager="hibernateTransactionManager" />
+
+
+    <!-- это механизм постобработки компонентов, добавляющий объект-советник во все компоненты,
+    отмеченные аннотацией @Repository, который будет перехватывать все специфические исключения
+    и преобразовывать их в соответствующие неконтролируемые исключения Spring -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+</beans>

@@ -1,0 +1,44 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- Разрешаем использование аннотаций Spring MVC (то есть @Controller и.т.д) -->
+    <mvc:annotation-driven />
+
+    <!-- Подключаем файл конфигураций Spring для работы AOP -->
+    <import resource="spring/spring-aop.xml" />
+
+    <!-- Определяем папку, в которой будем искать веб компоненты (@Controller - контроллеры)-->
+    <context:component-scan base-package="com.springapp.mvc.controllers"/>
+
+    <!-- Всю статику (изображения, css-файлы, javascript) положим в папку webapp/resources
+        и замаппим их на урл вида /resources/** -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+    <!-- Отображение видов на ftl-файлы, лежащие в папке /WEB-INF/views -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"
+          p:prefix=""
+          p:suffix=".ftl"
+          p:cache="true"
+          p:contentType="text/html; charset=UTF-8" />
+
+    <!-- Настраиваем FreeMarker -->
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"
+          p:templateLoaderPath="/WEB-INF/views/"
+          p:defaultEncoding="UTF-8">
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="datetime_format">dd-MM-yyyy HH:mm:ss</prop>
+                <prop key="number_format">0.######</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
