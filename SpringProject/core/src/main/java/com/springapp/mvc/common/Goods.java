@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Entity
@@ -35,7 +35,7 @@ public class Goods {
     private String describe;
 
     @Column(name = "size")
-    private double size;
+    private String size;
 
     @Column(name = "image")
     private String image;
@@ -51,16 +51,15 @@ public class Goods {
             mappedBy = "goods")
     private List<Cart> cart;
 
-    @ManyToOne
-            (cascade = {CascadeType.REFRESH},
-                    fetch = FetchType.LAZY)
-    @JoinColumn(name = "category")
-    private Category category;
+    @OneToMany(cascade = CascadeType.REFRESH,
+            fetch = FetchType.LAZY,
+            mappedBy="goods")
+    private List<Comments> comments;
 
     public Goods() {
     }
 
-    public Goods(String name, BigDecimal price, String brand, Integer popular, String describe, double size, String image, String sport, String age) {
+    public Goods(String name, BigDecimal price, String brand, Integer popular, String describe, String size, String image, String sport, String age) {
         this.name = name;
         this.price = price;
         this.brand = brand;
@@ -96,14 +95,6 @@ public class Goods {
         this.price = price;
     }
 
-    public double getSize() {
-        return size;
-    }
-
-    public void setSize(double size) {
-        this.size = size;
-    }
-
     public String getImage() {
         return image;
     }
@@ -118,18 +109,6 @@ public class Goods {
 
     public void setCart(List<Cart> cart) {
         this.cart = cart;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Long getCategoryID() {
-        return category.getId();
     }
 
     public String getBrand() {
@@ -169,6 +148,26 @@ public class Goods {
         this.age = age;
     }
 
+    public Integer getPopular() {
+        return popular;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public String toString() {
         return "Goods{" +
@@ -178,12 +177,12 @@ public class Goods {
                 ", brand='" + brand + '\'' +
                 ", popular=" + popular +
                 ", describe='" + describe + '\'' +
-                ", size=" + size +
+                ", size='" + size + '\'' +
                 ", image='" + image + '\'' +
                 ", sport='" + sport + '\'' +
                 ", age='" + age + '\'' +
                 ", cart=" + cart +
-                ", category=" + category +
+                ", comments=" + comments +
                 '}';
     }
 }

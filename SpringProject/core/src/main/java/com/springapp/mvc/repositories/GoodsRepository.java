@@ -1,18 +1,21 @@
 package com.springapp.mvc.repositories;
 
-import com.springapp.mvc.common.Category;
 import com.springapp.mvc.common.Goods;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Repository
@@ -27,14 +30,6 @@ public class GoodsRepository {
     @SuppressWarnings("unchecked")
     public List<Goods> getAllGoods() {
         return sessionFactory.getCurrentSession().createCriteria(Goods.class).list();
-    }
-
-    /*
-     *  Получение списка всх товаров определенного цвета из БД
-     */
-    @SuppressWarnings("unchecked")
-    public List<Goods> getGoodsByColorID(Category category) {
-        return (List<Goods>) sessionFactory.getCurrentSession().createCriteria(Goods.class).add(Restrictions.eq("category", category)).list();
     }
 
     /*
@@ -69,8 +64,8 @@ public class GoodsRepository {
         if (brand.equals("joma")) {
             brand = "Joma";
         }
-        if (brand.equals("umbro")) {
-            brand = "Umbro";
+        if (brand.equals("demix")) {
+            brand = "Demix";
         }
         return (List<Goods>) sessionFactory.getCurrentSession().createCriteria(Goods.class).add(Restrictions.eq("brand", brand)).list();
     }
@@ -92,10 +87,54 @@ public class GoodsRepository {
         if (sport.equals("hockey")) {
             sport = "Хоккей";
         }
-        if (sport.equals("tennnis")) {
+        if (sport.equals("tennis")) {
             sport = "Теннис";
         }
         return (List<Goods>) sessionFactory.getCurrentSession().createCriteria(Goods.class).add(Restrictions.eq("sport", sport)).list();
+    }
+
+    /*
+     *  Выбор товаров из заданного списка по виду спорта
+     */
+    @SuppressWarnings("unchecked")
+    public ArrayList<Goods> getSortingGoodsBySport(String sport, ArrayList<Goods> goods) {
+        if (sport.equals("football")) {
+            sport = "Футбол";
+        }
+        if (sport.equals("basketball")) {
+            sport = "Баскетбол";
+        }
+        if (sport.equals("volleyball")) {
+            sport = "Волейбол";
+        }
+        if (sport.equals("hockey")) {
+            sport = "Хоккей";
+        }
+        if (sport.equals("tennis")) {
+            sport = "Теннис";
+        }
+        Iterator iterator = goods.iterator();
+        while (iterator.hasNext()) {
+            Goods good = (Goods) iterator.next();
+            if (!good.getSport().equals(sport))
+                iterator.remove();
+        }
+        return goods;
+    }
+
+    /*
+     *  Выбор товаров из заданного списка по заданной цене ОТ и ДО
+     */
+    @SuppressWarnings("unchecked")
+    public ArrayList<Goods> getSortingGoodsByPriceFromTo(BigDecimal from, BigDecimal to, ArrayList<Goods> goods) {
+        Iterator iterator = goods.iterator();
+        while (iterator.hasNext()) {
+            Goods good = (Goods) iterator.next();
+            if (good.getPrice().compareTo(from) == -1 || good.getPrice().compareTo(to) == 1) {
+                iterator.remove();
+            }
+        }
+        return goods;
     }
 
     /*
@@ -135,7 +174,7 @@ public class GoodsRepository {
         if (sport.equals("hockey")) {
             sport = "Хоккей";
         }
-        if (sport.equals("tennnis")) {
+        if (sport.equals("tennis")) {
             sport = "Теннис";
         }
         if (age.equals("men")) {
@@ -151,5 +190,33 @@ public class GoodsRepository {
             age = "Р";
         }
         return (List<Goods>) sessionFactory.getCurrentSession().createCriteria(Goods.class).add(Restrictions.eq("age", age)).add(Restrictions.eq("sport", sport)).list();
+    }
+
+    /*
+     *  Сортировка и полчуение лучших товаров по числу покупок
+     */
+    @SuppressWarnings("unchecked")
+    public List<Goods> getBestGoodsByPopular() {
+        return (List<Goods>) sessionFactory.getCurrentSession().createCriteria(Goods.class).addOrder(Order.desc("popular")).setMaxResults(10).list();
+    }
+
+    /*
+     *  Сортировка и полчуение самых дешевых товаров
+     */
+    @SuppressWarnings("unchecked")
+    public List<Goods> getCheapestGoods() {
+        return (List<Goods>) sessionFactory.getCurrentSession().createCriteria(Goods.class).addOrder(Order.asc("price")).setMaxResults(10).list();
+    }
+
+    /*
+     * Сортировка товаров по цене
+     */
+    @SuppressWarnings("unchecked")
+    public ArrayList<Goods> getSortingGoodsByPrice(String sorting) {
+        if (sorting.equals("asc")) {
+            return (ArrayList<Goods>) sessionFactory.getCurrentSession().createCriteria(Goods.class).addOrder(Order.asc("price")).list();
+        } else {
+            return (ArrayList<Goods>) sessionFactory.getCurrentSession().createCriteria(Goods.class).addOrder(Order.desc("price")).list();
+        }
     }
 }

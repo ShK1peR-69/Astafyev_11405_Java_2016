@@ -1,5 +1,10 @@
 package ru.kpfu.itis.java.ais;
 
+/**
+ * @author Astafyev Igor
+ *         11-405
+ *         for SemWork
+ */
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

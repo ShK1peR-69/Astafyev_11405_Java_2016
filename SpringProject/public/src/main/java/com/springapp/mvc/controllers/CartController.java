@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Controller
@@ -45,28 +45,34 @@ public class CartController {
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public String renderCartPage() {
-        double price = 0;
+        double anon_price = 0;
+        double user_price = 0;
         String sessionGoods = (String) request.getSession().getAttribute("goods");
 
         if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
             MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            request.setAttribute("cart", cartService.getCartsByUserID(user.getUser().getId()));
             List<Cart> allCarts = cartService.getCartsByUserID(user.getUser().getId());
-            for (Cart c : allCarts) {
-                Double a = new Double(String.valueOf(c.getGoods().getPrice()));
-                price = price + (a * c.getCount());
+            if (allCarts != null) {
+                request.setAttribute("cart", allCarts);
+                for (Cart c : allCarts) {
+                    Double a = new Double(String.valueOf(c.getGoods().getPrice()));
+                    user_price = user_price + (a * c.getCount());
+                }
+                request.setAttribute("itog", user_price);
             }
-            request.setAttribute("itog", price);
         } else {
             List<Cart> cart = cartService.getGoodsForAnonUser(sessionGoods);
-            request.setAttribute("cart", cart);
             if (cart != null) {
+                request.setAttribute("cart", cart);
                 for (Cart c : cart) {
                     Double a = new Double(String.valueOf(c.getGoods().getPrice()));
-                    price = price + (a * c.getCount());
+                    anon_price = anon_price + (a * c.getCount());
                 }
-                request.setAttribute("itog", price);
+                request.setAttribute("itog", anon_price);
             }
+        }
+        if (request.getParameter("authoring") != null) {
+            request.setAttribute("authoring", "auth-error");
         }
         return "cart";
     }
@@ -78,23 +84,18 @@ public class CartController {
     @ResponseBody
     @RequestMapping(value = "/goods/add-to-cart/{id}", method = RequestMethod.POST)
     public String addGoodToCartFromCatalog(@PathVariable long id) {
-        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-            MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            cartService.addGoodInCart(id, user.getUser().getId());
-            request.getSession().setAttribute("cart", cartService.getCartsByUserID(user.getUser().getId()));
+//        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+//            MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login = (String) request.getSession().getAttribute("login");
+        if (login != null) {
+            Users user = usersService.getUserByLogin(login);
+            cartService.addGoodInCart(id, user.getId());
+            request.getSession().setAttribute("cart", cartService.getCartsByUserID(user.getId()));
         } else {
             request.getSession().setAttribute("goods", Methods.addBookInCartOfAnonUser(request, id));
         }
         return "added";
     }
-
-
-
-
-
-
-
-
 
 
     /*
@@ -117,9 +118,9 @@ public class CartController {
      */
     @ResponseBody
     @RequestMapping(value = "/addAgainGood/{id}", method = RequestMethod.POST)
-    public String addBookInCart(@PathVariable long id) throws IOException {
+    public String addAgainOneGoodToCart(@PathVariable long id) throws IOException {
         if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-            double price=0;
+            double price = 0;
             MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             cartService.addAgainOneGoodToCart(id, user.getUser().getId());
             request.setAttribute("cart", cartService.getCartsByUserID(user.getUser().getId()));
@@ -140,7 +141,7 @@ public class CartController {
      */
     @ResponseBody
     @RequestMapping(value = "/subOneGood/{id}", method = RequestMethod.POST)
-    public String deleteOneBookInCart(@PathVariable long id) throws IOException {
+    public String deleteOneGoodFromCart(@PathVariable long id) throws IOException {
         if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
             MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             cartService.reduceOneGoodFromCart(id, user.getUser().getId());
@@ -158,7 +159,6 @@ public class CartController {
             cartService.cancelOrder(user.getUser().getId());
         } else {
             request.getSession().setAttribute("goods", "");
-
         }
         return "redirect:/cart";
     }

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Entity
@@ -54,6 +54,11 @@ public class Users {
             fetch = FetchType.LAZY,
             mappedBy="users")
     private List<Order> order;
+
+    @OneToMany(cascade = CascadeType.REFRESH,
+            fetch = FetchType.LAZY,
+            mappedBy="users")
+    private List<Comments> comments;
 
     public Users() {
     }
@@ -156,6 +161,14 @@ public class Users {
         this.order = order;
     }
 
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
@@ -170,6 +183,7 @@ public class Users {
                 ", address=" + address +
                 ", cart=" + cart +
                 ", order=" + order +
+                ", comments=" + comments +
                 '}';
     }
 }

@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 /**
  * @author Astafyev Igor
  *         11-405
+ *         for SemWork
  */
 
 @Service

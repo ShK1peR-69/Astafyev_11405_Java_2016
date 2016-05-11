@@ -1,7 +1,7 @@
 /**
  * @author Astafyev Igor
  *         11-405
- *         for Lesson
+ *         for SemWork
  */
 
 $(document).ready(function () {

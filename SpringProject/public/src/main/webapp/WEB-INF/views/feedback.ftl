@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<#include "header.ftl"/>
+<#include "templates/header.ftl"/>
 
 <div id="contact-page" class="container">
     <div class="bg">
@@ -121,7 +121,7 @@
     </div>
 </div>
 
-<#include "footer.ftl"/>
+<#include "templates/footer.ftl"/>
 
 </body>
 </html>

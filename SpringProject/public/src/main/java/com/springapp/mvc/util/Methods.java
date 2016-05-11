@@ -1,33 +1,14 @@
 package com.springapp.mvc.util;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 public class Methods {
-
-    /*
-     * Хэширование пароля, MD5
-     */
-    public static String hashPass(String password) {
-        MessageDigest messageDigest;
-        byte[] hp = new byte[0];
-        try {
-            messageDigest = MessageDigest.getInstance("md5");
-            messageDigest.reset();
-            messageDigest.update(password.getBytes());
-            hp = messageDigest.digest();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return new String(hp);
-    }
 
     /*
      * Добавление товара в корзину неавторизованного пользователя

@@ -25,7 +25,7 @@
 
 <body>
 
-<#include "header.ftl"/>
+<#include "templates/header.ftl"/>
 
 <section id="cart_items">
     <div class="container">
@@ -35,7 +35,9 @@
                 <li class="active">Корзина</li>
             </ol>
         </div>
-
+    <#if authoring??||authoring?has_content>
+        <div class="auth_erroring">Оформлять заказ могут только авторизованные пользователи.</div>
+    </#if>
     <#if cart?has_content>
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
@@ -55,7 +57,9 @@
                         <td class="cart_product">
                             <div class="coloumn_in_cart">
                                 <div class="tovar_in_cart">
-                                    <a href="/goods/info/${c.getGoods().getId()}"><img class="good_image" src="${c.getGoods().getImage()}" alt=""></a>
+                                    <a href="/goods/info/${c.getGoods().getId()}"><img class="good_image"
+                                                                                       src="${c.getGoods().getImage()}"
+                                                                                       alt=""></a>
                                 </div>
                             </div>
                         </td>
@@ -101,13 +105,14 @@
                     <div class="col-sm-7">
                         <div class="total_area">
                             <ul>
-                                <li>Общая стоимость заказа: <span>${itog} руб.</span></li>
+                                <li>Общая стоимость заказа: <span>${itog?c} руб.</span></li>
                                 <li>НДС: <span>100 руб.</span></li>
                                 <li>Доставка: <span>200 руб.</span></li>
                                 <li>Итого к оплате: <span>${itog+300} руб.</span></li>
                             </ul>
                             <a class="btn btn-default update" href="/order/cancel">Отменить заказ</a>
-                            <a class="btn btn-default check_out pull-right" href="/checkout/address">Перейти к оформлению</a>
+                            <a class="btn btn-default check_out pull-right" href="/checkout/address">Перейти к
+                                оформлению</a>
                         </div>
                     </div>
                 </div>
@@ -126,7 +131,7 @@
 </section>
 
 
-<#include "footer.ftl"/>
+<#include "templates/footer.ftl"/>
 
 </body>
 </html>

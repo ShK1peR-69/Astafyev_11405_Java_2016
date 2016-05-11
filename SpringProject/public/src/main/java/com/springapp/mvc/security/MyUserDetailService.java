@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Component

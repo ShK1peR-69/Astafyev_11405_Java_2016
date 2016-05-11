@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Service
@@ -38,5 +38,20 @@ public class UsersService {
     @Transactional
     public void changeCheckingAfterSendingMail(String login) {
         userRepository.changeCheckingAfterSendingMail(login);
+    }
+
+    @Transactional
+    public void deleteUserFromDB(Long id) {
+        userRepository.deleteUserFromDB(id);
+    }
+
+    @Transactional
+    public void banForUser(Long id) {
+        userRepository.banForUser(id);
+    }
+
+    @Transactional
+    public void unblockUser(Long id) {
+        userRepository.unblockUser(id);
     }
 }

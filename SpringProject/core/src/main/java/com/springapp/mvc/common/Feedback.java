@@ -5,6 +5,7 @@ import javax.persistence.*;
 /**
  * @author Astafyev Igor
  *         11-405
+ *         for SemWork
  */
 
 @Entity

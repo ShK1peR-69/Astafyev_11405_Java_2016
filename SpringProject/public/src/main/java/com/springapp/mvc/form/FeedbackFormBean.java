@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 /**
  * @author Astafyev Igor
  *         11-405
+ *         for SemWork
  */
 
 public class FeedbackFormBean {

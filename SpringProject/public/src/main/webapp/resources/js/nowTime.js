@@ -1,3 +1,9 @@
+/**
+ * @author Astafyev Igor
+ *         11-405
+ *         for SemWork
+ */
+
 function clock() {
     var d = new Date();
     var hours = d.getHours();

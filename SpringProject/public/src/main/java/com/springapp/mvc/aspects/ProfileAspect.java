@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Aspect
@@ -35,12 +35,10 @@ public class ProfileAspect {
      */
     @Before("includeParametersMethod()")
     public void includeParameters() {
-        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-            MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            request.getSession().setAttribute("name", user.getUser().getName());
-            request.getSession().setAttribute("login", user.getUser().getUsername());
-            request.getSession().setAttribute("email", user.getUser().getEmail());
-            request.getSession().setAttribute("allOrders", orderService.getAllOrdersByUserID(user.getUser().getId()));
-        }
+        MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        request.getSession().setAttribute("fio", user.getUser().getName());
+        request.getSession().setAttribute("login", user.getUser().getUsername());
+        request.getSession().setAttribute("email", user.getUser().getEmail());
+        request.getSession().setAttribute("allOrders", orderService.getAllOrdersByUserID(user.getUser().getId()));
     }
 }

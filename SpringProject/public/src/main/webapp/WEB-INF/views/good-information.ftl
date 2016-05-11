@@ -1,3 +1,4 @@
+<#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,13 +27,13 @@
 </head>
 <body>
 
-<#include "header.ftl"/>
+<#include "templates/header.ftl"/>
 
 <section>
     <div class="container">
         <div class="row">
 
-        <#include "left-catalog.ftl"/>
+        <#include "templates/left-catalog.ftl"/>
 
             <div class="col-sm-9 padding-right">
                 <div class="product-details">
@@ -58,11 +59,14 @@
                                     </button>
 								</span>
 
-                            <p><b>Производитель: </b> In Stock</p>
+                            <p><b>Производитель: </b> ${tovar.getBrand()}</p>
 
-                            <p><b>Категория: </b> New</p>
+                            <p><b>Вид спорта: </b> ${tovar.getSport()}</p>
 
-                            <p><b>Описание: </b> Л</p>
+                            <p><b>Размер: </b> ${tovar.getSize()}</p>
+                            <p><b>Рейтинг: </b> ${tovar.getPopular()} <i class="fa fa-star"> &nbsp </i></p>
+
+                            <p><b>Описание: </b> ${tovar.getDescribe()}</p>
                         </div>
                     </div>
                 </div>
@@ -76,24 +80,42 @@
                     </div>
 
                     <div class="tab-content">
-                        <div class="media commnets tab-pane fade active in" id="all_comments">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="../../resources/images/anon-man.png">
-                            </a>
+                    <#if comments?has_content>
+                        <div class="tab-pane fade active in" id="all_comments">
+                            <#list comments as comment>
+                                <div class="media commnets">
+                                    <div class="pull-left">
+                                        <img class="media-object pull-left" src="../../resources/images/anon-man.png">
+                                    </div>
 
-                            <div class="media-body">
-                                <h4 class="media-heading">Annie Davis</h4>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">${comment.getUsers().getUsername()}</h4>
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                        <p>${comment.getMessage()}</p>
+                                    </div>
+                                    <#if login??>
+                                        <#if login == (comment.getUsers().getUsername())>
+                                            <div class="delete-comment pull-right">
+                                                <a href="/delete-comment/${tovar.getId()}/${comment.getId()}"><i
+                                                        class="fa fa-times"></i></a>
+                                            </div>
+                                        </#if>
+                                    </#if>
+                                </div>
+                            </#list>
+                        </div>
+                    <#else>
+                        <div class="tab-pane fade active in" id="all_comments">
+                            <div class="for-comment">
+                                О данном товаре пока нет ни одонго отзыва.
                             </div>
                         </div>
+                    </#if>
 
-
+                    <#if login??>
                         <div class="tab-pane fade in" id="add_review">
                             <div class="col-sm-12">
-                                <a class="comment-inform" href="#"><i class="fa fa-user"></i> EUGEN</a>
+                                <a class="comment-inform" href="/profile"><i class="fa fa-user"></i> ${login}</a>
                                 <i class="fa fa-calendar-o comment-inform"> Сегодня: <span id="doc_date"></span>
                                     <script type="text/javascript">date();</script>
                                 </i>
@@ -104,16 +126,22 @@
                                 <br/>
 
                                 <p><b>Оставить отзыв</b></p>
-
-                                <form action="#">
-                                    <textarea class="comment-area" name="text-message"
-                                              placeholder="Введите текст сообщения" rows="3"></textarea>
-                                    <button type="button" class="btn btn-default pull-left add-comment">
+                                <@form.form commandName="commentForm" action="/goods/info/${tovar.getId()}" acceptCharset="UTF-8" method="post">
+                                    <@form.errors path="message" cssStyle="color: red; font-size: 9pt;" />
+                                    <@form.textarea path="message" type='text' placeholder="Введите текст сообщения" name='message' class="comment-area" rows="3"/>
+                                    <button type="submit" class="btn btn-default pull-left add-comment">
                                         Добавить
                                     </button>
-                                </form>
+                                </@form.form>
                             </div>
                         </div>
+                    <#else>
+                        <div class="tab-pane fade in" id="add_review">
+                            <div class="for-comment">
+                                Комментари могут оставлять только авторизованные пользователи.
+                            </div>
+                        </div>
+                    </#if>
 
 
                     </div>
@@ -123,6 +151,6 @@
     </div>
 </section>
 
-<#include "footer.ftl"/>
+<#include "templates/footer.ftl"/>
 </body>
 </html>

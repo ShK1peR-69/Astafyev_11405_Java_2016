@@ -25,21 +25,21 @@
 
 <body>
 
-<#include "header.ftl"/>
-<#include "main_slider.ftl"/>
+<#include "templates/header.ftl"/>
+<#include "templates/main_slider.ftl"/>
 
 <section>
     <div class="container">
         <div class="row">
 
-        <#include "left-catalog.ftl"/>
-        <#include "catalog_template.ftl"/>
+        <#include "templates/left-catalog.ftl"/>
+        <#include "templates/catalog_template.ftl"/>
 
         </div>
     </div>
 </section>
 
-<#include "footer.ftl"/>
+<#include "templates/footer.ftl"/>
 
 </body>
 </html>

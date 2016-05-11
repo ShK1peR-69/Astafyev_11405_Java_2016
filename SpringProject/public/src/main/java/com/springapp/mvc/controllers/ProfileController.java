@@ -3,6 +3,7 @@ package com.springapp.mvc.controllers;
 import com.springapp.mvc.aspects.annotation.IncludeSessionParameters;
 import com.springapp.mvc.common.Order;
 import com.springapp.mvc.common.Users;
+import com.springapp.mvc.services.CartService;
 import com.springapp.mvc.services.OrderService;
 import com.springapp.mvc.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Controller
@@ -30,13 +31,15 @@ public class ProfileController {
     private OrderService orderService;
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private CartService cartService;
 
     /*
-     * Профиль покупателя
+     *  Профиль покупателя
      */
     @IncludeSessionParameters
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String renderOnProfilePage() {
+    public String checkingProfilePage() {
         String fio = (String) request.getSession().getAttribute("fio");
         String login = (String) request.getSession().getAttribute("login");
         String email = (String) request.getSession().getAttribute("email");
@@ -52,6 +55,12 @@ public class ProfileController {
                 request.setAttribute("allOrders", orders);
             }
         }
+        String sessionGoods = (String) request.getSession().getAttribute("goods");
+        if (sessionGoods != null) {
+            cartService.addAllGoodsFromSessionToCartOfUser(sessionGoods, user.getId());
+        } else {
+            request.setAttribute("cart", cartService.getCartsByUserID(user.getId()));
+        }
         return "profile";
     }
 
@@ -61,6 +70,14 @@ public class ProfileController {
     @IncludeSessionParameters
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String renderProfilePage() {
+        String login = (String) request.getSession().getAttribute("login");
+        Users user = usersService.getUserByLogin(login);
+        String sessionGoods = (String) request.getSession().getAttribute("goods");
+        if (sessionGoods != null) {
+            cartService.addAllGoodsFromSessionToCartOfUser(sessionGoods, user.getId());
+        } else {
+            request.setAttribute("cart", cartService.getCartsByUserID(user.getId()));
+        }
         return "profile";
     }
 

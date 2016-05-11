@@ -17,6 +17,7 @@ import javax.validation.Valid;
 /**
  * @author Astafyev Igor
  *         11-405
+ *         for SemWork
  */
 
 @Controller
@@ -45,7 +46,7 @@ public class FeedbackController {
      */
     @IncludeSessionParameters
     @RequestMapping(method = RequestMethod.POST)
-    public String addAddressForm(
+    public String addNewFeedback(
             @Valid @ModelAttribute(ATTR_FEEDBACK_FORM) FeedbackFormBean feedbackFormBean,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

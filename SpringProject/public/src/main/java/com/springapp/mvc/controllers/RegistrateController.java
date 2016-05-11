@@ -2,10 +2,10 @@ package com.springapp.mvc.controllers;
 
 import com.springapp.mvc.common.Users;
 import com.springapp.mvc.form.RegistrationFormBean;
-import com.springapp.mvc.util.Methods;
 import com.springapp.mvc.services.CartService;
 import com.springapp.mvc.services.OrderService;
 import com.springapp.mvc.services.UsersService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,12 +24,12 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Controller
 @RequestMapping(value = "/registration")
-public class RegistrateController{
+public class RegistrateController {
 
     final static String ATTR_REGISTRATION_FORM = "regForm";
 
@@ -55,7 +55,7 @@ public class RegistrateController{
      * Регистрация нового пользователя, добавление его в БД
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String registrationForm(
+    public String addNewUserToDB(
             @Valid @ModelAttribute(ATTR_REGISTRATION_FORM) RegistrationFormBean registrationFormBean,
             BindingResult bindingResult, ModelMap model) throws MessagingException {
         if (bindingResult.hasErrors()) {
@@ -64,8 +64,8 @@ public class RegistrateController{
         String name = request.getParameter("fio");
         String login = request.getParameter("login");
         String email = request.getParameter("email");
-        String pass_one = Methods.hashPass(request.getParameter("password_one"));
-        String pass_two = Methods.hashPass(request.getParameter("password_two"));
+        String pass_one = DigestUtils.md5Hex(request.getParameter("password_one"));
+        String pass_two = DigestUtils.md5Hex(request.getParameter("password_two"));
         String key = "TEA(_)zaqwsxcde" + email.charAt(1) + "123rfvbgtyhn456" + login + "mjuik789_0987654321)(SHOP";
         if (!pass_one.equals(pass_two)) {
             model.put("message_password", "Пароли не совпадают");
@@ -98,7 +98,7 @@ public class RegistrateController{
      * Подтверждение регистрации пользовтеля после получение e-mail
      */
     @RequestMapping(value = "/approval/{login}/{key}", method = RequestMethod.GET)
-    public String verificationMethod(@PathVariable("login") String login) {
+    public String verificationMethodForNewUser(@PathVariable("login") String login) {
         usersService.changeCheckingAfterSendingMail(login);
         Users user = usersService.getUserByLogin(login);
         request.getSession().setAttribute("fio", user.getName());

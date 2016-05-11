@@ -18,7 +18,7 @@
         <logout logout-url="/logout"
                 logout-success-url="/"
                 invalidate-session="true" />
-        <intercept-url pattern="/user**" access="hasRole('ROLE_USER, ROLE_ADMIN')"/>
+        <intercept-url pattern="/profile**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')"/>
 
         <remember-me user-service-ref="userDetailsService" key="SpringProject" token-validity-seconds="2419200"/>

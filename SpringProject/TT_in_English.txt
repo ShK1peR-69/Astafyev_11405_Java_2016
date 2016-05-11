@@ -1,0 +1,68 @@
+Technical task for development the site "Online-store selling sports goods".
+
+• 1. The name of the site (the domain name).
+localhost:8080
+
+• 2. The name of the site.
+SportParadise.
+
+• 3. The purpose of the site.
+3.1. Shop performance in the Internet: information about goods, prices of provided goods, contact information of the store.
+3.2. The ability to access information about the goods offered by the shop for all interested persons, regardless of their location.
+3.3. The increase and expansion the region of sales of goods.
+
+• 4. The language of the site.
+Russian.
+
+• 5. The volume and composition of textual information.
+Not discussed.
+
+• 6. The intended age audience of the site.
+There are no age restrictions.
+
+• 7. The number of pages of the website.
+The website must contain the following required html-pages: 1 - Home page; 2 - The Catalogue of goods offered by the store; 3 - The Information about the product, its description and photograph; 4 - Page for feedback; 5 - Basket; 6 - Checkout page(add shipping address); 7 - Registration a new user; 8 - The user Profile; 9 - Page for authentication; 10 - Admin page for working with users.
+
+• 8. Control buttons (navigation of website).
+Determined by the web designer themselves.
+With each page of the site must be provided with the transition (set as a hyperlink to the home page of the website.
+
+• 9. The block scheme of the website.
+Head (starting) page of the website should contain hypertext links, enabling the transition from it to all pages of the website.
+
+• 10. Website size, MB.
+Not discussed.
+
+• 11. The design drawings.
+Format all graphics are 'png' or 'jpg' ('jpeg').
+
+• 12. The bandwidth of the communication line.
+The average time of page load shall not exceed 35 seconds when the connection speed is 28.8 Kbit/s. Allowed to increase the loading time of individual pages to 40 seconds, but not more than 25% of the number of pages of the website. Parent (home) page should have load time less than 55 seconds.
+Note:
+In all cases, is not considered a boot time loadable elements (counters, banners, widgets, etc.).
+
+• 13. The basic range resolution of monitors on which to view the website.
+The site is optimized for a resolution of 1366x768 pixels.
+
+• 14. The main browser to view the website and its minimal version.
+IE with version 1.0 and above.
+
+• 15. Color palette.
+The main mode of monitors on which the website is viewed: 15 bits colors and above (the number of colors 65536 and above).
+During the development of the site should be provided with the ability to view it when using the safe color palette. Changes shades of colors, when you view the website using the safe color palette, are not addressed.
+
+• 16. General background of the site.
+General website background is light (white). Allowed to use light Wallpaper.
+
+• 17. The size and type of font site.
+The font size of the website for text formatting is not discussed. The font size for the design of headers, page names is not discussed. Kind (name) of the font is not discussed.
+
+• 18. An advertising campaign on promotion of the website.
+Website promotion determined by a separate TT. In the present TT website promotion is not negotiated and is not part of works.
+
+• 19. The website development time.
+2 months.
+
+• 20. Additional conditions.
+Each page of your site should contain the logo and name of the store.
+At the bottom of each page of the website should include contact information and a hyperlink which redirect you to the feedback page.

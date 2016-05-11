@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Target(ElementType.METHOD)

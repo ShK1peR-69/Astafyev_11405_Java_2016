@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<#include "header.ftl" />
+<#include "templates/header.ftl" />
 
 <section id="form">
     <div class="container">
@@ -94,7 +94,7 @@
     </div>
 </section>
 
-<#include  "footer.ftl"/>
+<#include  "templates/footer.ftl"/>
 
 </body>
 </html>

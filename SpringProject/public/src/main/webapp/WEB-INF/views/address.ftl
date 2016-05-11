@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<#include "header.ftl" />
+<#include "templates/header.ftl" />
 
 <section id="form">
     <div class="container">
@@ -51,7 +51,7 @@
 
                     <@form.errors path="city" cssStyle="color: red; font-size: 9pt;" />
                     <br/>
-                    *Город:
+                    *Город/село/посёлок:
                     <br/>
                     <@form.input path="city" placeholder="Бугульма" name='city' />
 
@@ -90,7 +90,7 @@
     </div>
 </section>
 
-<#include  "footer.ftl"/>
+<#include  "templates/footer.ftl"/>
 
 </body>
 </html>

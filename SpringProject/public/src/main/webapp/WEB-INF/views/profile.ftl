@@ -27,12 +27,12 @@
 
 <body>
 
-<#include "header.ftl"/>
+<#include "templates/header.ftl"/>
 
 <section>
     <div class="container">
         <div class="row">
-        <#include "left-catalog.ftl"/>
+        <#include "templates/left-catalog.ftl"/>
 
             <div class="col-sm-9">
                 <div class="blog-post-area">
@@ -102,7 +102,7 @@
     </div>
 </section>
 
-<#include "footer.ftl"/>
+<#include "templates/footer.ftl"/>
 
 </body>
 </html>

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Entity
@@ -38,13 +38,13 @@ public class Order {
     @ManyToOne
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users")
     private Users users;
 
     @ManyToOne
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address")
     private Address address;
 
     @OneToMany(cascade = CascadeType.REFRESH,

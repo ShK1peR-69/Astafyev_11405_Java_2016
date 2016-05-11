@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Qualifier("order_goods")
@@ -28,9 +28,11 @@ public class Order_GoodsRepository {
     public List<Order_Goods> getAllOrder_Goods() {
         return sessionFactory.getCurrentSession().createCriteria(Order_Goods.class).list();
     }
+
     /*
      *  Добавление
      */
+    @SuppressWarnings("unchecked")
     public void addNewOrder_goods(Order_Goods order_goods) {
         sessionFactory.getCurrentSession().save(order_goods);
     }

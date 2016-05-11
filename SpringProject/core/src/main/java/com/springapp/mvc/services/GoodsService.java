@@ -1,18 +1,19 @@
 package com.springapp.mvc.services;
 
-import com.springapp.mvc.common.Category;
 import com.springapp.mvc.common.Goods;
 import com.springapp.mvc.repositories.GoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Service
@@ -24,11 +25,6 @@ public class GoodsService {
     @Transactional
     public List<Goods> getAllGoods() {
         return goodsRepository.getAllGoods();
-    }
-
-    @Transactional
-    public List<Goods> getGoodsByColorID(Category category) {
-        return goodsRepository.getGoodsByColorID(category);
     }
 
     @Transactional
@@ -59,5 +55,30 @@ public class GoodsService {
     @Transactional
     public List<Goods> getGoodsByAgeAndSport(String sport, String age) {
         return goodsRepository.getGoodsByAgeAndSport(sport, age);
+    }
+
+    @Transactional
+    public List<Goods> getCheapestGoods() {
+        return goodsRepository.getCheapestGoods();
+    }
+
+    @Transactional
+    public List<Goods> getBestGoodsByPopular() {
+        return goodsRepository.getBestGoodsByPopular();
+    }
+
+    @Transactional
+    public List<Goods> getSortingGoodsByPrice(String sorting) {
+        return goodsRepository.getSortingGoodsByPrice(sorting);
+    }
+
+    @Transactional
+    public ArrayList<Goods> getSortingGoodsBySport(String sorting, ArrayList<Goods> goods) {
+        return goodsRepository.getSortingGoodsBySport(sorting, goods);
+    }
+
+    @Transactional
+    public ArrayList<Goods> getSortingGoodsByPriceFromTo(BigDecimal from, BigDecimal to, ArrayList<Goods> goods) {
+        return goodsRepository.getSortingGoodsByPriceFromTo(from, to, goods);
     }
 }

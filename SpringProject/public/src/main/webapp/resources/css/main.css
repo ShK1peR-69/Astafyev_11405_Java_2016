@@ -11,6 +11,11 @@ body {
     font-weight: normal;
 }
 
+.exept {
+    text-align: center;
+    color: #d4d4d4;
+}
+
 ul li {
     list-style: none;
 }
@@ -844,6 +849,11 @@ h2.title {
     right: 0;
 }
 
+.productinfo img {
+    width: 100%;
+    height: 100%;
+}
+
 .productinfo h2 {
     color: #0900cc;
     font-family: 'Roboto', sans-serif;
@@ -863,10 +873,8 @@ h2.title {
     font-size: 14px;
     font-weight: 400;
     color: #696763;
-}
-
-.productinfo img {
-    width: 100%;
+    height: 50px;
+    padding: 0 10px 0 10px;
 }
 
 .productinfo {
@@ -877,7 +885,6 @@ h2.title {
 .good_image {
     width: 100%;
     height: 100%;
-    position: relative;
 }
 
 .coloumn {
@@ -889,12 +896,12 @@ h2.title {
 }
 
 .tovar {
-    border-radius: 10px;
     background-color: white;
     text-align: center;
-    height: 90%;
+    height: 95%;
     width: 80%;
     padding-top: 3%;
+    padding-bottom: 1%;
     display: inline-block;
 }
 
@@ -928,6 +935,7 @@ h2.title {
     width: 150px;
     text-align: center;
     max-width: 100%;
+    margin-right: 50px;
 }
 
 .tovar_in_cart {
@@ -1254,9 +1262,7 @@ h2.title {
 .product-information {
     border: 1px solid #F7F7F0;
     overflow: hidden;
-    padding-bottom: 60px;
-    padding-left: 60px;
-    padding-top: 30px;
+    padding: 30px 30px 60px 60px;
     position: relative;
 }
 
@@ -1624,13 +1630,14 @@ h2.title {
 }
 
 #cart_items .cart_info .cart_description h4 {
+    font-size: 12pt;
     margin-bottom: 0
 }
 
 #cart_items .cart_info .cart_description h4 a {
     color: #363432;
     font-family: 'Roboto', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
 
 }
@@ -1677,7 +1684,7 @@ h2.title {
 
 .cart_delete {
     display: block;
-    margin-right: -12px;
+    margin-right: 5px;
     overflow: hidden;
 }
 
@@ -1686,6 +1693,11 @@ h2.title {
     color: #FFFFFF;
     padding: 5px 7px;
     font-size: 16px
+}
+
+.cart_description {
+    padding-left: 100px;
+    margin-left: 200px;
 }
 
 .cart_delete a:hover {
@@ -2001,9 +2013,7 @@ h2.title {
 **************************/
 
 .blog-post-area
-.single-blog-post h2
-
- {
+.single-blog-post h2 {
     color: #696763;
     font-size: 22px;
     font-family: 'Roboto', sans-serif;
@@ -2606,50 +2616,135 @@ h2.title {
     font-weight: bolder;
 }
 
-.erroring{
+.erroring {
     width: 100%;
     font-size: 10pt;
     color: red;
     margin: -10px 0 10px 0;
 }
 
-.comment-area{
+.auth_erroring {
+    text-align: center;
+    width: 105%;
+    font-size: 12pt;
+    color: red;
+    margin: -10px 0 10px 0;
+}
+
+.comment-area {
     padding: 15px;
 }
 
-.add-comment{
+.add-comment {
     margin-top: 20px;
     color: white;
     background-color: #0900cc;
 }
 
-.comment-inform{
+.comment-inform {
     margin: 0 10px 0 10px;
 }
 
-.fa-calendar{
+.fa-calendar {
     padding-top: 200px;
 }
 
-.logout{
+.logout {
     text-align: center;
 }
 
-.cart_quantity_delete a{
+.cart_quantity_delete a {
     background-color: red;
     color: green;
 }
 
-.orders-history{
+.admin-menu{
     padding: 20px;
     background-color: #ededed;
+    width: 90%;
 }
 
-.orders-history a{
+.admin-menu a {
     text-decoration: none;
     color: red;
 }
 
-.orders-history a:hover{
+.admin-menu a:hover {
+    font-weight: bold;
+}
+
+.orders-history {
+    padding: 20px;
+    background-color: #ededed;
+}
+
+.orders-history a {
+    text-decoration: none;
+    color: red;
+}
+
+.orders-history a:hover {
     font-weight: bolder;
+}
+
+.for-comment {
+    text-align: center;
+    font-size: 12pt;
+}
+
+.delete-comment {
+    color: #b7b7b7;
+    vertical-align: top;
+    height: 100%;
+    margin-top: -60px;
+}
+
+.delete-comment a {
+    color: #b7b7b7;
+}
+
+.delete-comment a:hover {
+    color: #7a7a7a;
+}
+
+.sorting {
+    margin-right: -450px;
+    margin-left: 50px;
+    margin-top: -10px;
+}
+
+.padding_input_from {
+    display: inline-block;
+    margin: 1px;
+    padding-left: 3%;
+    padding-right: 2%;
+    width: 58px;
+}
+
+.padding_input_to {
+    display: inline-block;
+    margin: 1px;
+    padding-left: 3%;
+    padding-right: 2%;
+}
+
+.search {
+    width: 110px;
+    top: 0;
+}
+
+.button_top {
+    margin-top: -15px;
+}
+
+.show-more-button {
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px #f0f0f0;
+    color: #aaa;
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 15px;
+    margin: 15px 0 15px 0;
+    cursor: pointer;
 }

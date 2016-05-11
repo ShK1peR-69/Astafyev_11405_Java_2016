@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Repository
@@ -54,6 +54,7 @@ public class OrderRepository {
         Order order = (Order) sessionFactory.getCurrentSession().createCriteria(Order.class).add(Restrictions.eq("id", id)).uniqueResult();
         List<Order_Goods> order_gooods = sessionFactory.getCurrentSession().createCriteria(Order_Goods.class).add(Restrictions.eq("order", order)).list();
         for (Order_Goods og : order_gooods) {
+            og.getGoods().setPopular(og.getGoods().getPopular() - 1);
             sessionFactory.getCurrentSession().delete(og);
         }
         sessionFactory.getCurrentSession().delete(order);

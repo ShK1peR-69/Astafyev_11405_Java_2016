@@ -9,7 +9,7 @@ import java.util.Properties;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 public class CreateTable {
@@ -22,15 +22,15 @@ public class CreateTable {
     }
 
     private static Connection getConnection() throws IOException, ClassNotFoundException, SQLException {
-        Properties props = new Properties();                  // Доп класс для считывание данных с файла
-        props.load(new FileInputStream("etc/properties/tutor-db-connection.properties"));     // Считывание (загрузка) из файла
+        Properties props = new Properties();
+        props.load(new FileInputStream("etc/properties/connection.properties"));
         String driver = props.getProperty("driver");
         String url = props.getProperty("url");
         String user = props.getProperty("user");
         String pass = props.getProperty("pass");
-        Class.forName(driver);                                // Проверка правильности подключения драйвера
-        return DriverManager.getConnection(url, user, pass);  // Открытие соединения к БД
-    }
+        Class.forName(driver);
+        return DriverManager.getConnection(url, user, pass);
+}
 
     private static void createTableSubject() throws SQLException, ClassNotFoundException, IOException {
         Connection connection = null;

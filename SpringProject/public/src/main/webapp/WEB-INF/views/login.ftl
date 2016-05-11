@@ -1,3 +1,4 @@
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,7 @@
 </head>
 
 <body>
-<#include "header.ftl" />
+<#include "templates/header.ftl" />
 
 <section id="form">
     <div class="container">
@@ -33,17 +34,11 @@
                 <div class="login-form">
                     <h2><b>Войти в личный кабинет</b></h2>
 
-                <#if (clear-cart)??>
-                    <div class="erroring">${clear-cart}</div>
-                </#if>
-                <#if authoring??>
-                    <div class="erroring">${authoring}</div>
-                </#if>
-                <#if error??>
-                    <div class="erroring">${error}</div>
+                <#if error?has_content>
+                    <div class="erroring">Неверное имя пользователя или пароль !</div>
                 </#if>
 
-                    <form method="post" action="/login-ss-off" name="authForm" id="authForm">
+                    <form method="post" action="/j_spring_security_check" name="authForm" id="authForm">
                         <input type="text" placeholder="Логин" name="j_username"/>
                         <input type="password" placeholder="Пароль" name="j_password"/>
 							<span>
@@ -65,6 +60,6 @@
     </div>
 </section>
 
-<#include  "footer.ftl"/>
+<#include  "templates/footer.ftl"/>
 </body>
 </html>

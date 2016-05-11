@@ -10,12 +10,11 @@ import javax.transaction.Transactional;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 @Service
 public class AddressService {
-
 
     @Autowired
     private AddressRepository addressRepository;

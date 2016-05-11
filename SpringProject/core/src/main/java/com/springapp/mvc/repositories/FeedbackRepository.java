@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author Astafyev Igor
  *         11-405
+ *         for SemWork
  */
 
 @Repository

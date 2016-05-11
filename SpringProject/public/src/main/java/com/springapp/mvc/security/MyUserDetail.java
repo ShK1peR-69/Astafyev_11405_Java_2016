@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Astafyev Igor
  *         11-405
- *         for DZ-labs
+ *         for SemWork
  */
 
 public class MyUserDetail implements UserDetails {
