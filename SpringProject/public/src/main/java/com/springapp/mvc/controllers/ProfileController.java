@@ -1,5 +1,6 @@
 package com.springapp.mvc.controllers;
 
+import com.springapp.mvc.aspects.annotation.IncludeBeforeLogs;
 import com.springapp.mvc.aspects.annotation.IncludeSessionParameters;
 import com.springapp.mvc.common.Order;
 import com.springapp.mvc.common.Users;
@@ -37,6 +38,7 @@ public class ProfileController {
     /*
      *  Профиль покупателя
      */
+    @IncludeBeforeLogs
     @IncludeSessionParameters
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String checkingProfilePage() {
@@ -67,6 +69,7 @@ public class ProfileController {
     /*
      * Возвращает страницу profile
      */
+    @IncludeBeforeLogs
     @IncludeSessionParameters
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String renderProfilePage() {
@@ -84,6 +87,7 @@ public class ProfileController {
     /*
      * Удаление заказа у пользователя с данным ID
      */
+    @IncludeSessionParameters
     @RequestMapping(value = "/delete-order/{id}", method = RequestMethod.GET)
     public String deleteOrderFromProfileByID(@PathVariable long id) {
         orderService.deleteOrderByID(id);

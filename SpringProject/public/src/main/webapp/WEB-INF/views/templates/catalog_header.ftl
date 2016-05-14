@@ -24,11 +24,15 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
-                        <#if login??>
+                        <@sec.authorize ifAnyGranted="ROLE_ANONYMOUS">
+                            <li><a href="/profile"><i class="fa fa-lock"></i> Войти</a></li>
+                        </@sec.authorize>
+                        <@sec.authorize access="isAuthenticated()">
                             <li><a href="/profile"><i class="fa fa-user"></i> Профиль</a></li>
-                        <#else>
-                            <li><a href="/login"><i class="fa fa-lock"></i> Войти</a></li>
-                        </#if>
+                        </@sec.authorize>
+                        <@sec.authorize ifAnyGranted="ROLE_ADMIN">
+                            <li><a href="/admin"><i class="fa fa-cog fa-fw"></i> Админ</a></li>
+                        </@sec.authorize>
                         </ul>
                     </div>
                 </div>

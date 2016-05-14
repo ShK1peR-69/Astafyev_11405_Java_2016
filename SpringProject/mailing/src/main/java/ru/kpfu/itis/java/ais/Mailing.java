@@ -16,7 +16,7 @@ public class Mailing {
     static final String password = "njkrjdsq1ckjdfhm";
 
     /*
-     * Отправление e-mail для подтверждения регистрации
+     *  Отправление e-mail для подтверждения регистрации
      */
     public static void sendApprovalMail(String name, String login, String email, String key) throws MessagingException {
         try {
@@ -24,10 +24,10 @@ public class Mailing {
             message.setFrom(new InternetAddress("grigorich.poker@yandex.ru"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email));
-            message.setSubject("TeaParadiseShop");
+            message.setSubject("SportParadiseShop");
             message.setText("Здравствуйте, " + name + "!\n" +
                     "\n" +
-                    "Вы зарегистрировались на нашем сайте 'TeaParadise'.\n" +
+                    "Вы зарегистрировались на нашем сайте 'SportParadise'.\n" +
                     "Пожалуйста, подтвердите свою регистрацию, перейдя по ссылке:\n" +
                     "http://localhost:8080/registration/approval/" + login + "/" + key + "\n" +
                     "\n" +

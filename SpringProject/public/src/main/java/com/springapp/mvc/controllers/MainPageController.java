@@ -5,6 +5,7 @@ import com.springapp.mvc.services.GoodsService;
 import com.springapp.mvc.util.SortingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,6 +79,12 @@ public class MainPageController {
      */
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
     public String renderCatalogPage() {
+        if (request.getParameter("goodses") != null) {
+            request.setAttribute("allGoods", null);
+            sortingFilter = new SortingFilter("football", "asc", BigDecimal.valueOf(0), BigDecimal.valueOf(0));
+            request.setAttribute("filter", sortingFilter);
+            return "catalog";
+        }
         sortingFilter = new SortingFilter("football", "asc", BigDecimal.valueOf(0), BigDecimal.valueOf(0));
         request.setAttribute("filter", sortingFilter);
         request.setAttribute("allGoods", goodsService.getAllGoods());
@@ -88,12 +95,12 @@ public class MainPageController {
      * Поиск товара по названию или части названия
      */
     @RequestMapping(value = "/catalog/search", method = RequestMethod.GET)
-    public String searchingPage() {
+    public String searchingPage(ModelMap model) {
         String word = request.getParameter("word");
         List<Goods> goods = goodsService.getGoodsByName(word);
-        if (goods.isEmpty()) {
-            request.setAttribute("allGoods", null);
-            return "catalog";
+        if (goods.size() == 0) {
+            model.put("goodses", "error");
+            return "redirect:/catalog";
         }
         sortingFilter = new SortingFilter("football", "asc", BigDecimal.valueOf(0), BigDecimal.valueOf(0));
         request.setAttribute("filter", sortingFilter);

@@ -32,7 +32,6 @@ public class CommentsController {
 
     @RequestMapping(value = "/delete-comment/{good_id}/{comment_id}", method = RequestMethod.GET)
     public String deleteCommentForGood(@PathVariable long good_id, @PathVariable long comment_id) {
-//        MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication();
         commentsService.deleteCommentByID(comment_id);
         return "redirect:/goods/info/" + good_id;
     }

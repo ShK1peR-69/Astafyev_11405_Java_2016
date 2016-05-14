@@ -23,6 +23,16 @@ public class GoodsService {
     private GoodsRepository goodsRepository;
 
     @Transactional
+    public void addNewGood(Goods good) {
+        goodsRepository.addNewGood(good);
+    }
+
+    @Transactional
+    public void deleteGoodByID(Long id) {
+        goodsRepository.deleteGoodByID(id);
+    }
+
+    @Transactional
     public List<Goods> getAllGoods() {
         return goodsRepository.getAllGoods();
     }

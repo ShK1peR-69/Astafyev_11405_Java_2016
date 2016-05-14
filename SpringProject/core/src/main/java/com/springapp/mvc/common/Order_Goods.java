@@ -24,12 +24,12 @@ public class Order_Goods {
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    private Order order;
+    private Order order_id;
 
     @ManyToOne
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.LAZY)
-    @JoinColumn(name = "good_id")
+    @JoinColumn(name = "goods")
     private Goods goods;
 
     public Order_Goods() {
@@ -39,10 +39,10 @@ public class Order_Goods {
         this.count = count;
     }
 
-    public Order_Goods(int count, Goods goods, Order order) {
+    public Order_Goods(int count, Goods goods, Order order_id) {
         this.count = count;
         this.goods = goods;
-        this.order = order;
+        this.order_id = order_id;
     }
 
     public Long getId() {
@@ -61,12 +61,12 @@ public class Order_Goods {
         this.count = count;
     }
 
-    public Order getOrder() {
-        return order;
+    public Order getOrder_id() {
+        return order_id;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrder_id(Order order_id) {
+        this.order_id = order_id;
     }
 
     public Goods getGoods() {
@@ -82,7 +82,7 @@ public class Order_Goods {
         return "Order_Goods{" +
                 "id=" + id +
                 ", count=" + count +
-                ", order=" + order +
+                ", order_id=" + order_id +
                 ", goods=" + goods +
                 '}';
     }

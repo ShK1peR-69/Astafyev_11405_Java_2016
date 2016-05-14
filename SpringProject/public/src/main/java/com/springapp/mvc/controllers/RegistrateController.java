@@ -1,5 +1,6 @@
 package com.springapp.mvc.controllers;
 
+import com.springapp.mvc.aspects.annotation.IncludeSessionParameters;
 import com.springapp.mvc.common.Users;
 import com.springapp.mvc.form.RegistrationFormBean;
 import com.springapp.mvc.services.CartService;
@@ -97,6 +98,7 @@ public class RegistrateController {
     /*
      * Подтверждение регистрации пользовтеля после получение e-mail
      */
+    @IncludeSessionParameters
     @RequestMapping(value = "/approval/{login}/{key}", method = RequestMethod.GET)
     public String verificationMethodForNewUser(@PathVariable("login") String login) {
         usersService.changeCheckingAfterSendingMail(login);

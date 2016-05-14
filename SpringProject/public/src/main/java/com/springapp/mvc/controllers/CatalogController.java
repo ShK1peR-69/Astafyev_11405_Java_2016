@@ -71,7 +71,7 @@ public class CatalogController {
 
         String login = (String) request.getSession().getAttribute("login");
         Users user = usersService.getUserByLogin(login);
-        String message = request.getParameter("text-message");
+        String message = request.getParameter("message");
         Goods good = goodsService.getGoodByID(id);
         Comments comment = new Comments(message, user, good);
         commentsService.addNewComment(comment);

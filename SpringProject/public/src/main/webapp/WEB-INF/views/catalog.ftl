@@ -1,3 +1,4 @@
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
 <!DOCTYPE html>
 <html lang="en">
 <head>

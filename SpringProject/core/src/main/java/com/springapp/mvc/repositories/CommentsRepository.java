@@ -1,6 +1,5 @@
 package com.springapp.mvc.repositories;
 
-import com.springapp.mvc.common.Cart;
 import com.springapp.mvc.common.Comments;
 import com.springapp.mvc.common.Goods;
 import org.hibernate.SessionFactory;
@@ -50,8 +49,9 @@ public class CommentsRepository {
     /*
      *  Удаление комментария пользователя
      */
+    @SuppressWarnings("unchecked")
     public void deleteUserCommentByAdmin(Long id) {
-        Comments comment = (Comments) sessionFactory.getCurrentSession().createCriteria(Cart.class).add(Restrictions.eq("id", id)).uniqueResult();
+        Comments comment = (Comments) sessionFactory.getCurrentSession().createCriteria(Comments.class).add(Restrictions.eq("id", id)).uniqueResult();
         sessionFactory.getCurrentSession().delete(comment);
     }
 }

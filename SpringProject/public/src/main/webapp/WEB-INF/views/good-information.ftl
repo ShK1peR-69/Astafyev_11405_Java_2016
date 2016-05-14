@@ -64,6 +64,7 @@
                             <p><b>Вид спорта: </b> ${tovar.getSport()}</p>
 
                             <p><b>Размер: </b> ${tovar.getSize()}</p>
+
                             <p><b>Рейтинг: </b> ${tovar.getPopular()} <i class="fa fa-star"> &nbsp </i></p>
 
                             <p><b>Описание: </b> ${tovar.getDescribe()}</p>
@@ -80,28 +81,31 @@
                     </div>
 
                     <div class="tab-content">
-                    <#if comments?has_content>
+                    <#if comments??>
                         <div class="tab-pane fade active in" id="all_comments">
                             <#list comments as comment>
-                                <div class="media commnets">
-                                    <div class="pull-left">
-                                        <img class="media-object pull-left" src="../../resources/images/anon-man.png">
-                                    </div>
+                                <#if comment.getMessage()??>
+                                    <div class="media commnets">
+                                        <div class="pull-left">
+                                            <img class="media-object pull-left"
+                                                 src="../../resources/images/anon-man.png">
+                                        </div>
 
-                                    <div class="media-body">
-                                        <h4 class="media-heading">${comment.getUsers().getUsername()}</h4>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">${comment.getUsers().getUsername()}</h4>
 
-                                        <p>${comment.getMessage()}</p>
-                                    </div>
-                                    <#if login??>
-                                        <#if login == (comment.getUsers().getUsername())>
-                                            <div class="delete-comment pull-right">
-                                                <a href="/delete-comment/${tovar.getId()}/${comment.getId()}"><i
-                                                        class="fa fa-times"></i></a>
-                                            </div>
+                                            <p>${comment.getMessage()}</p>
+                                        </div>
+                                        <#if login??>
+                                            <#if login == (comment.getUsers().getUsername())>
+                                                <div class="delete-comment pull-right">
+                                                    <a href="/delete-comment/${tovar.getId()}/${comment.getId()}"><i
+                                                            class="fa fa-times"></i></a>
+                                                </div>
+                                            </#if>
                                         </#if>
-                                    </#if>
-                                </div>
+                                    </div>
+                                </#if>
                             </#list>
                         </div>
                     <#else>

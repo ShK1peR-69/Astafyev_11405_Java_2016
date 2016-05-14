@@ -1,6 +1,9 @@
 package com.springapp.mvc.repositories;
 
+import com.springapp.mvc.common.Cart;
+import com.springapp.mvc.common.Comments;
 import com.springapp.mvc.common.Goods;
+import com.springapp.mvc.common.Order_Goods;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -23,6 +26,35 @@ public class GoodsRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    /*
+     *  Добавление нового товара
+     */
+    public void addNewGood(Goods good) {
+        sessionFactory.getCurrentSession().save(good);
+    }
+
+
+    /*
+     *  Удаление товара
+     */
+    @SuppressWarnings("unchecked")
+    public void deleteGoodByID(Long id) {
+        Goods good = (Goods) sessionFactory.getCurrentSession().createCriteria(Goods.class).add(Restrictions.eq("id", id)).uniqueResult();
+        List<Order_Goods> order_goods = (List<Order_Goods>) sessionFactory.getCurrentSession().createCriteria(Order_Goods.class).add(Restrictions.eq("goods", good)).list();
+        for (Order_Goods og: order_goods) {
+            sessionFactory.getCurrentSession().delete(og);
+        }
+        List<Cart> carts = (List<Cart>) sessionFactory.getCurrentSession().createCriteria(Cart.class).add(Restrictions.eq("goods", good)).list();
+        for (Cart c : carts) {
+            sessionFactory.getCurrentSession().delete(c);
+        }
+        List<Comments> comments = (List<Comments>) sessionFactory.getCurrentSession().createCriteria(Comments.class).add(Restrictions.eq("goods", good)).list();
+        for (Comments comment : comments) {
+            sessionFactory.getCurrentSession().delete(comment);
+        }
+        sessionFactory.getCurrentSession().delete(good);
+    }
 
     /*
      *  Получение списка всх товаров из БД

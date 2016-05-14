@@ -84,13 +84,10 @@ public class CartController {
     @ResponseBody
     @RequestMapping(value = "/goods/add-to-cart/{id}", method = RequestMethod.POST)
     public String addGoodToCartFromCatalog(@PathVariable long id) {
-//        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-//            MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String login = (String) request.getSession().getAttribute("login");
-        if (login != null) {
-            Users user = usersService.getUserByLogin(login);
-            cartService.addGoodInCart(id, user.getId());
-            request.getSession().setAttribute("cart", cartService.getCartsByUserID(user.getId()));
+        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            MyUserDetail user = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            cartService.addGoodInCart(id, user.getUser().getId());
+            request.getSession().setAttribute("cart", cartService.getCartsByUserID(user.getUser().getId()));
         } else {
             request.getSession().setAttribute("goods", Methods.addBookInCartOfAnonUser(request, id));
         }

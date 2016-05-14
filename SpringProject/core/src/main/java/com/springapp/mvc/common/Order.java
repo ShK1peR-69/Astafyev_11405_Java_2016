@@ -49,7 +49,7 @@ public class Order {
 
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY,
-            mappedBy="order")
+            mappedBy="order_id")
     private List<Order_Goods> order_goods;
 
 
