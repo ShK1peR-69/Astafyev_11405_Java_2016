@@ -9,6 +9,7 @@ import javafx.util.Duration;
 /**
  * @author Astafyev Igor
  *         11-405
+ *         for SemWork_2
  */
 
 public class Animation extends Transition {

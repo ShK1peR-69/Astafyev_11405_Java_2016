@@ -3,19 +3,16 @@ package sample;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 /**
  * @author Astafyev Igor
  *         11-405
+ *         for SemWork_2
  */
 
 public class Hero extends Pane {
 
-    private int windowWidth = 500;
-    private int windowHeight = 500;
     ImageView imageView;
     int frame = 3;
     int columns = 3;
@@ -34,28 +31,9 @@ public class Hero extends Pane {
         getChildren().addAll(imageView);
     }
 
-    public void createBorders(){
-        Main.top = new Rectangle(510, 1, Color.RED);
-        Main.top.setX(Main.root.getLayoutX());
-        Main.top.setY(Main.root.getLayoutY());
-        Main.root.getChildren().addAll(Main.top);
-
-        Main.left = new Rectangle(1, 510, Color.RED);
-        Main.left.setX(Main.root.getLayoutX());
-        Main.left.setY(Main.root.getLayoutY());
-        Main.root.getChildren().addAll(Main.left);
-
-        Main.right = new Rectangle(1, 510, Color.RED);
-        Main.right.setX(Main.root.getLayoutX() + 509);
-        Main.right.setY(Main.root.getLayoutY());
-        Main.root.getChildren().addAll(Main.right);
-
-        Main.bottom = new Rectangle(510, 1, Color.RED);
-        Main.bottom.setX(Main.root.getLayoutX());
-        Main.bottom.setY(Main.root.getLayoutY() + 509);
-        Main.root.getChildren().addAll(Main.bottom);
-    }
-
+    /*
+      Движение по горизонтали
+     */
     public void moveByHorizontal(int x) {
         boolean horizontal = true;
         if (x < 0) {
@@ -71,6 +49,9 @@ public class Hero extends Pane {
         }
     }
 
+    /*
+      Движение по вертикали
+     */
     public void moveByVertical(int y) {
         boolean vertical = true;
         if (y < 0) {
@@ -86,12 +67,14 @@ public class Hero extends Pane {
         }
     }
 
+    /*
+      Поедание "грибочков"
+     */
     public void isBonusEat() {
         for (ImageView fungus : Main.bonuses) {
             if (this.getBoundsInParent().intersects(fungus.getBoundsInParent())) {
                 deletingFungus = fungus;
                 score++;
-                System.out.println(score);
             }
         }
         Main.bonuses.remove(deletingFungus);

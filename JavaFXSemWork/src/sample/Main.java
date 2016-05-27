@@ -21,6 +21,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * @author Astafyev Igor
+ *         11-405
+ *         for SemWork_2
+ */
+
 public class Main extends Application {
 
     public static Rectangle top;
@@ -39,11 +45,15 @@ public class Main extends Application {
 
     Random random = new Random();
 
+
+    /*
+      Метод создания "грибочков"
+     */
     public void bonus() {
-        int number = random.nextInt(7777);
+        int number = random.nextInt(7654);
         int x = random.nextInt(windowWidth - 20);
         int y = random.nextInt(windowHeight - 10);
-        if (number < 96) {
+        if (number < 123) {
             Image image = new Image("sample/resources/images/fungus.png");
             ImageView fungus = new ImageView();
             fungus.setImage(image);
@@ -54,6 +64,9 @@ public class Main extends Application {
         }
     }
 
+    /*
+      Создание стенок игрового поля
+     */
     public void createBorders() {
         top = new Rectangle(511, 1, Color.RED);
         top.setX(root.getLayoutX());
@@ -76,6 +89,9 @@ public class Main extends Application {
         root.getChildren().addAll(bottom);
     }
 
+    /*
+      Обработка нажатия кнопок
+     */
     public void update() {
         if (isPressed(KeyCode.UP)) {
             hero.animation.play();
@@ -120,7 +136,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final int[] t = {10};
+        final int[] t = {60};
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -136,64 +152,53 @@ public class Main extends Application {
                 new KeyFrame(
                         Duration.millis(1000),
                         ae -> {
-                            if (t[0] < 5) {
-                                if (t[0] == 1) {
-                                    System.out.println("Осталось: " + t[0] + " секундa");
-                                } else {
-                                    System.out.println("Осталось: " + t[0] + " секунды");
-                                }
-                            } else {
-                                System.out.println("Осталось: " + t[0] + " секунд");
+                            if (t[0] > -1) {
+                                System.out.println("Осталось: " + t[0] + " сек.");
+                                primaryStage.setTitle("ForesterGirl  " + t[0] + " cек.");
                             }
                             t[0]--;
-                            if (t[0] == 0) {
-                                System.out.println("Игра завершена!");
-                                System.out.println("Ваш счет = " + hero.score);
+                            if (t[0] < 0) {
                                 try {
                                     this.stop();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                                 timer.stop();
-                                hero.animation.stop();
-                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                                alert.setTitle("Game Over");
-                                alert.setHeaderText(null);
-                                alert.setContentText("Игра завершена" + "\n" + "Ваш счет = " + hero.score);
-                                ButtonType newGameButton = new ButtonType("Начать заново");
-                                ButtonType endTheGameButton = new ButtonType("Выход", ButtonBar.ButtonData.CANCEL_CLOSE);
-                                alert.getButtonTypes().setAll(newGameButton, endTheGameButton);
-                                alert.showingProperty().addListener((observable, oldValue, newValue) -> {
-                                    if (!newValue) {
-                                        timer.stop();
-                                        hero.animation.stop();
-                                        try {
-                                            this.stop();
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                                if (t[0] == -1) {
+                                    hero.animation.stop();
+                                    System.out.println("Игра завершена!");
+                                    System.out.println("Ваш счет = " + hero.score);
+
+                                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                    alert.setTitle("Game Over");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("Игра завершена" + "\n" + "Ваш счет = " + hero.score);
+                                    ButtonType endTheGameButton = new ButtonType("Выход", ButtonBar.ButtonData.CANCEL_CLOSE);
+                                    alert.getButtonTypes().setAll(endTheGameButton);
+                                    alert.showingProperty().addListener((observable, oldValue, newValue) -> {
+                                        if (!newValue) {
+                                            primaryStage.close();
                                         }
-                                        System.out.println("Это пиздец!!!!!");
-                                    } else {
-                                        primaryStage.close();
-                                    }
-                                });
-                                alert.show();
+                                    });
+                                    alert.show();
+                                }
                             }
                         }
                 )
         );
 
-        timeline.setCycleCount(10);
+        timeline.setCycleCount(61);
         timeline.play();
 
         root.getChildren().addAll(hero);
+        root.setId("pane");
         Scene scene = new Scene(root, windowWidth, windowHeight);
+        scene.setFill(Color.AZURE);
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
         scene.setOnKeyReleased(event -> {
             keys.put(event.getCode(), false);
         });
 
-        primaryStage.setTitle("ForesterGirl");
         primaryStage.setResizable(false);
         primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
