@@ -1,8 +1,13 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -10,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,24 +55,24 @@ public class Main extends Application {
     }
 
     public void createBorders() {
-        top = new Rectangle(510, 1, Color.RED);
+        top = new Rectangle(511, 1, Color.RED);
         top.setX(root.getLayoutX());
-        top.setY(root.getLayoutY());
+        top.setY(root.getLayoutY() - 1);
         root.getChildren().addAll(top);
 
-        left = new Rectangle(1, 510, Color.RED);
-        left.setX(root.getLayoutX());
+        left = new Rectangle(1, 511, Color.RED);
+        left.setX(root.getLayoutX() - 1);
         left.setY(root.getLayoutY());
         root.getChildren().addAll(left);
 
-        right = new Rectangle(1, 510, Color.RED);
-        right.setX(root.getLayoutX() + 509);
+        right = new Rectangle(1, 511, Color.RED);
+        right.setX(root.getLayoutX() + 510);
         right.setY(root.getLayoutY());
         root.getChildren().addAll(right);
 
-        bottom = new Rectangle(510, 1, Color.RED);
+        bottom = new Rectangle(511, 1, Color.RED);
         bottom.setX(root.getLayoutX());
-        bottom.setY(root.getLayoutY() + 509);
+        bottom.setY(root.getLayoutY() + 510);
         root.getChildren().addAll(bottom);
     }
 
@@ -83,14 +89,26 @@ public class Main extends Application {
             hero.animation.play();
             hero.animation.setY(0);
             hero.moveByVertical(2);
+            if (hero.getBoundsInParent().intersects(Main.bottom.getBoundsInParent())) {
+                hero.setTranslateX(hero.getTranslateX());
+                hero.setTranslateY(Main.top.getY() + 3);
+            }
         } else if (isPressed(KeyCode.RIGHT)) {
             hero.animation.play();
             hero.animation.setY(96);
             hero.moveByHorizontal(2);
+            if (hero.getBoundsInParent().intersects(Main.right.getBoundsInParent())) {
+                hero.setTranslateX(Main.left.getX() + 5);
+                hero.setTranslateY(hero.getTranslateY());
+            }
         } else if (isPressed(KeyCode.LEFT)) {
             hero.animation.play();
             hero.animation.setY(48);
             hero.moveByHorizontal(-2);
+            if (hero.getBoundsInParent().intersects(Main.left.getBoundsInParent())) {
+                hero.setTranslateX(Main.right.getX() - 33);
+                hero.setTranslateY(hero.getTranslateY());
+            }
         } else {
             hero.animation.stop();
         }
@@ -102,14 +120,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        root.getChildren().addAll(hero);
-        Image fon = new Image("sample/resources/images/field.png");
-
-        Scene scene = new Scene(root, windowWidth, windowHeight);
-        scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
-        scene.setOnKeyReleased(event -> {
-            keys.put(event.getCode(), false);
-        });
+        final int[] t = {10};
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -120,6 +131,68 @@ public class Main extends Application {
             }
         };
         timer.start();
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.millis(1000),
+                        ae -> {
+                            if (t[0] < 5) {
+                                if (t[0] == 1) {
+                                    System.out.println("Осталось: " + t[0] + " секундa");
+                                } else {
+                                    System.out.println("Осталось: " + t[0] + " секунды");
+                                }
+                            } else {
+                                System.out.println("Осталось: " + t[0] + " секунд");
+                            }
+                            t[0]--;
+                            if (t[0] == 0) {
+                                System.out.println("Игра завершена!");
+                                System.out.println("Ваш счет = " + hero.score);
+                                try {
+                                    this.stop();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                timer.stop();
+                                hero.animation.stop();
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setTitle("Game Over");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Игра завершена" + "\n" + "Ваш счет = " + hero.score);
+                                ButtonType newGameButton = new ButtonType("Начать заново");
+                                ButtonType endTheGameButton = new ButtonType("Выход", ButtonBar.ButtonData.CANCEL_CLOSE);
+                                alert.getButtonTypes().setAll(newGameButton, endTheGameButton);
+                                alert.showingProperty().addListener((observable, oldValue, newValue) -> {
+                                    if (!newValue) {
+                                        timer.stop();
+                                        hero.animation.stop();
+                                        try {
+                                            this.stop();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        System.out.println("Это пиздец!!!!!");
+                                    } else {
+                                        primaryStage.close();
+                                    }
+                                });
+                                alert.show();
+                            }
+                        }
+                )
+        );
+
+        timeline.setCycleCount(10);
+        timeline.play();
+
+        root.getChildren().addAll(hero);
+        Scene scene = new Scene(root, windowWidth, windowHeight);
+        scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
+        scene.setOnKeyReleased(event -> {
+            keys.put(event.getCode(), false);
+        });
+
         primaryStage.setTitle("ForesterGirl");
         primaryStage.setResizable(false);
         primaryStage.setFullScreen(false);
