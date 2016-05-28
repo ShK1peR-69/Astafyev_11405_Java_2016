@@ -31,6 +31,14 @@
         </authentication-provider>
     </authentication-manager>
 
+    <authentication-manager>
+        <authentication-provider>
+            <user-service >
+                <user name="user" password="pass" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
     <!-- сервис авторизации -->
     <beans:bean id="userDetailsService" class="com.springapp.mvc.security.MyUserDetailService"/>
 

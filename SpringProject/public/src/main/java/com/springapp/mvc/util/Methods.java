@@ -1,7 +1,6 @@
 package com.springapp.mvc.util;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
 
 /**
  * @author Astafyev Igor
@@ -98,12 +97,5 @@ public class Methods {
             }
         }
         return sessionGoods;
-    }
-
-    public static void generateNewFile(String text) throws IOException {
-        File file = new File("users.pdf");
-        FileWriter fw = new FileWriter(file);
-        fw.write(text);
-        fw.close();
     }
 }

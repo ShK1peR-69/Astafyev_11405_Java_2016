@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="signup-form">
-                    <h2><b>Регистрация нового пользователя</b></h2>
+                    <h2><b>Оформление заказа</b></h2>
 
                 <@form.form commandName="addressForm" action="/checkout/address" acceptCharset="UTF-8" method="post">
                     <@form.errors path="index" cssStyle="color: red; font-size: 9pt;" />

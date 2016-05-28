@@ -3,6 +3,7 @@ package com.springapp.mvc.services;
 import com.springapp.mvc.common.Users;
 import com.springapp.mvc.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import java.util.List;
  *         for SemWork
  */
 
+@Qualifier("users")
 @Service
 public class UsersService {
 

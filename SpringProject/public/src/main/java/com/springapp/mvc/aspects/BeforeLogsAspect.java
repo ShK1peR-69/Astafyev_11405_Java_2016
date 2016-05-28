@@ -13,6 +13,7 @@ import java.util.logging.Logger;
  * @author Astafyev Igor
  *         11-405
  */
+
 public class BeforeLogsAspect {
 
     @Pointcut("@annotation(com.springapp.mvc.aspects.annotation.IncludeBeforeLogs)")

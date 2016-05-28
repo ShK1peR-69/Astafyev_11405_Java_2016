@@ -15,6 +15,7 @@
 
     <!-- Определяем папку, в которой будем искать веб компоненты (@Controller - контроллеры)-->
     <context:component-scan base-package="com.springapp.mvc.controllers"/>
+    <context:component-scan base-package="com.springapp.mvc.fx"/>
 
     <!-- Всю статику (изображения, css-файлы, javascript) положим в папку webapp/resources
         и замаппим их на урл вида /resources/** -->

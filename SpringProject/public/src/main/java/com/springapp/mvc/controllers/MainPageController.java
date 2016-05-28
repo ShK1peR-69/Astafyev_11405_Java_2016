@@ -31,7 +31,6 @@ public class MainPageController {
 
     private SortingFilter sortingFilter;
 
-
     @RequestMapping(value = "/catalog/sort", method = RequestMethod.POST)
     public String sortingMethod(@RequestParam(required = false) String sport, @RequestParam(required = false) String sorting,
                                 @RequestParam(required = false) String from, @RequestParam(required = false) String to)

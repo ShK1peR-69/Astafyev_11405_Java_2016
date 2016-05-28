@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.kpfu.itis.java.ais.Mailing;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -67,12 +66,12 @@ public class RegistrateController {
         String email = request.getParameter("email");
         String pass_one = DigestUtils.md5Hex(request.getParameter("password_one"));
         String pass_two = DigestUtils.md5Hex(request.getParameter("password_two"));
-        String key = "TEA(_)zaqwsxcde" + email.charAt(1) + "123rfvbgtyhn456" + login + "mjuik789_0987654321)(SHOP";
+        String key = "TEA(_)zaqwsxcde" + email.charAt(1) + "123rfvbgtyhn456" + login + "mjuik789_0987654321rSHOP";
         if (!pass_one.equals(pass_two)) {
             model.put("message_password", "Пароли не совпадают");
             return "registration";
         }
-        Users user = new Users(name, login, email, pass_one, false, key, "ROLE_USER");
+        Users user = new Users(name, login, email, pass_one, true, key, "ROLE_USER");
         List<Users> allUsers = usersService.getAllUsers();
         for (Users u : allUsers) {
             if (u.getEmail().equals(email)) {
@@ -91,7 +90,7 @@ public class RegistrateController {
         } else {
             request.setAttribute("cart", cartService.getCartsByUserID(user.getId()));
         }
-        Mailing.sendApprovalMail(name, login, email, key);
+//        Mailing.sendApprovalMail(name, login, email, key);
         return "redirect:/";
     }
 

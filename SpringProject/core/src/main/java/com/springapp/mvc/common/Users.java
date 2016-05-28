@@ -63,6 +63,12 @@ public class Users {
     public Users() {
     }
 
+    public Users(String email, String name, String username) {
+        this.email = email;
+        this.name = name;
+        this.username = username;
+    }
+
     public Users(String name, String username, String email, String password, Boolean checking, String key, String role) {
         this.name = name;
         this.username = username;

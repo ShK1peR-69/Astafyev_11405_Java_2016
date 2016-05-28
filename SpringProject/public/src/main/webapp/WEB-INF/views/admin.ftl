@@ -31,7 +31,7 @@
     <div class="container">
         <div class="row">
 
-            <a href="D:\Program Files (x86)\Java\Apache Tomcat 8.0.27\bin\users.pdf" download>Скачать</a>
+            <a href="/admin/file">Просмотреть</a>
             иформацию о всех пользователях сайта
             <br/>
             <br/>

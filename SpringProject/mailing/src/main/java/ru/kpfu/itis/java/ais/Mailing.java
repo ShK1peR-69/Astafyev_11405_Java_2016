@@ -35,7 +35,6 @@ public class Mailing {
                     "Если это письмо пришло Вам случайно, пожалуйста, проигнорируйте его.");
 
             Transport.send(message);
-            System.out.println("Отправилось!");
         } catch (MessagingException e) {
             throw new MessagingException(e.toString());
         }
@@ -49,6 +48,8 @@ public class Mailing {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
 
         return Session.getInstance(props,
                 new javax.mail.Authenticator() {

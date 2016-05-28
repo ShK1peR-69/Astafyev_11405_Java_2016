@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="tab-content">
-                    <#if comments??>
+                    <#if comments?? && comments?has_content>
                         <div class="tab-pane fade active in" id="all_comments">
                             <#list comments as comment>
                                 <#if comment.getMessage()??>

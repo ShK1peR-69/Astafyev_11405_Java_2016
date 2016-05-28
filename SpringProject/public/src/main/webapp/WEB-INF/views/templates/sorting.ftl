@@ -35,6 +35,8 @@
         <li class="button_top">
             <p>
                 <button type="submit" class="btn btn-primary search">Применить</button>
+                <br/>
+                <a href="/catalog" class="reset">Сбросить</a>
             </p>
         </li>
     </ul>
