@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="itis" class="Institute">
+        <constructor-arg value="ITIS"/>
+    </bean>
+
+    <bean id="sportfak" class="Institute">
+        <constructor-arg value="SportFak"/>
+    </bean>
+
+    <bean id="igoryan" class="Student">
+        <property name="name" value="Igor"/>
+        <property name="institute" ref="itis"/>
+        <property name="lessons">
+            <list>
+                <ref bean="matan"/>
+                <ref bean="proga"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="manya" class="Student" scope="prototype">
+        <property name="name" value="Manya"/>
+        <property name="institute" ref="sportfak"/>
+    </bean>
+
+    <bean id="matan" class="Lesson">
+        <constructor-arg value="Matan"/>
+    </bean>
+
+    <bean id="proga" class="Lesson">
+        <constructor-arg value="Programming"/>
+    </bean>
+
+    <bean id="kfu" class="Univer" factory-method="getUniver"/>
+
+</beans>

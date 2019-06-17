@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/DBforSpring</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">123456</property>
+        <property name="hbm2ddl.auto">update</property>
+
+        <mapping class="ru.kpfu.itis.java.ais.entities.AttendanceEntity"/>
+        <mapping class="ru.kpfu.itis.java.ais.entities.ClassesEntity"/>
+        <mapping class="ru.kpfu.itis.java.ais.entities.LessonEntity"/>
+        <mapping class="ru.kpfu.itis.java.ais.entities.SchoolsEntity"/>
+        <mapping class="ru.kpfu.itis.java.ais.entities.StudentsEntity"/>
+        <mapping class="ru.kpfu.itis.java.ais.entities.TeachersEntity"/>
+
+    </session-factory>
+</hibernate-configuration>
